@@ -1,17 +1,88 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TechShop.Interfaces;
 using TechShop.Modals;
-using TechShop.Utility;
+using TechShop.util;
 
 namespace TechShop.Services
 {
     public class CustomerService : ICustomerService
     {
+
+        SqlConnection sqlConnection = null;
+        SqlCommand cmd = null;
+
+        public CustomerService()
+        {
+            sqlConnection = DBConnection.GetConnection("C:\\Users\\nairy\\source\\repos\\Techshopp\\TechShop\\util\\dbconfig.json");
+            cmd = new SqlCommand();
+            cmd.Connection = sqlConnection;
+        }
+
+        public List<Customer> GetAllCusto()
+        {
+            List<Customer> customers = new List<Customer>();
+            try
+            {
+                // Open the connection
+                //sqlConnection.Open();
+
+                // Execute the query
+                cmd.CommandText = "SELECT * FROM Customers";
+                if (sqlConnection.State == System.Data.ConnectionState.Closed)
+                {
+                    sqlConnection.Open();
+                }
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                // Process the results
+                while (reader.Read())
+                {
+                    Customer customer1 = new Customer
+                    {
+                        CustomerID = (int)reader["CustomerID"],
+                        FirstName = (string)reader["FirstName"],
+                        LastName = (string)reader["LastName"],
+                        Email = (string)reader["Email"],
+                        Phone = (string)reader["Phone"],
+                        Address = (string)reader["Address"]
+                    };
+
+                    customers.Add(customer1);
+                }
+
+                // Close the reader after processing
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("An error occurred: " + ex.Message);
+            }
+            finally
+            {
+                // Ensure the connection is closed
+                if (sqlConnection.State == System.Data.ConnectionState.Open)
+                {
+                    sqlConnection.Close();
+                }
+            }
+
+            return customers;
+        }
+
+
+
+
+
+
+
+
+
         private List<Order> orders = new List<Order>();
 
         public int CalculateTotalOrders(Customer customer)
@@ -27,16 +98,7 @@ namespace TechShop.Services
             Console.WriteLine("Customer information updated successfully.");
         }
 
-        SqlConnection sqlConnection = null;
-        SqlCommand cmd = null;
-
-        //constructor
-        public CustomerService()
-        {
-            sqlConnection = new SqlConnection("Server=NAIRY;Database=TechShop2;Trusted_Connection=True");
-            //sqlConnection = new SqlConnection(DbConnUtil.GetConnString());
-            cmd = new SqlCommand();
-        }
+        
 
         public void GetCustomerDetails(Customer customer)
         {
@@ -50,30 +112,7 @@ namespace TechShop.Services
 
         }
 
-        public List<Customer> ? GetAllCusto()
-        {
-            //create a list to hold data from Database
-            List<Customer> customer = new List<Customer>();
-            cmd.CommandText = "select * from Customers";
-            cmd.Connection = sqlConnection;
-            sqlConnection.Open();
-            SqlDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
-            {
-                Customer customer1 = new Customer();
-                customer1.CustomerID = (int)reader["CustomerID"];
-                customer1.FirstName = (string)reader["FirstName"];
-                customer1.LastName = (string)reader["LastName"];
-                customer1.Email = (string)reader["Email"];
-                customer1.Phone = (string)reader["Phone"];
-                customer1.Address = (string)reader["Address"];
-                
 
-                customer.Add(customer1);
-            }
-            sqlConnection.Close();
-            return customer;
-        }
 
 
     }
