@@ -9,9 +9,9 @@ namespace TechShop.Interfaces
 {
     public interface ICustomerService
     {
-        int CalculateTotalOrders(Customer customer);
-        void UpdateCustomerInfo(Customer customer, string email, string phone, string address);
-        void GetCustomerDetails(Customer customer);
+        int CalculateTotalOrders(int customerid);
+        bool UpdateCustomerInfo(Customer customer);
+        Customer GetCustomerDetails(int customerid);
 
 
     }

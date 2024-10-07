@@ -9,17 +9,22 @@ namespace TechShop.Interfaces
 {
     public interface IInventoryService
     {
-        Product GetProduct(Inventory inventoryItem);
-        int GetQuantityInStock(Inventory inventoryItem);
-        void AddToInventory(Inventory inventoryItem, int quantity);
-        void RemoveFromInventory(Inventory inventoryItem, int quantity);
-        void UpdateStockQuantity(Inventory inventoryItem, int newQuantity);
-        bool IsProductAvailable(Inventory inventoryItem, int quantityToCheck);
-        decimal GetInventoryValue(Inventory inventoryItem);
+        public Product GetProduct(int productId);
 
-        List<Product> ListLowStockProducts(int threshold);
+        public int GetQuantityInStock(int productId);
 
-        List<Product> ListOutOfStockProducts();
-        void ListAllProducts();
+        public void AddToInventory(int productId, int quantityToAdd);
+
+        public void RemoveFromInventory(int productId, int quantityToRemove);
+        public void UpdateStockQuantity(int productId, int newQuantity);
+
+        public bool IsProductAvailable(int productId, int quantityToCheck);
+        public decimal GetInventoryValue();
+        public void ListLowStockProducts(int threshold);
+
+        public void ListOutOfStockProducts();
+
+        public void ListAllProducts();
+
     }
 }

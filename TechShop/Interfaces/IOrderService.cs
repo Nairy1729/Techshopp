@@ -9,9 +9,11 @@ namespace TechShop.Interfaces
 {
     public interface IOrderService
     {
-        decimal CalculateTotalAmount(Order order);
-        void GetOrderDetails(Order order);
-        void UpdateOrderStatus(Order order, string status);
-        void CancelOrder(Order order);
+        decimal CalculateTotalAmount(int orderid);
+
+        public List<OrderDetails> GetOrderDetails(int orderId);
+
+        public bool UpdateOrderStatus(int orderId, string status);
+        public bool CancelOrder(int orderId);
     }
 }

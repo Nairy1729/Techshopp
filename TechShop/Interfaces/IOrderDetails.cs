@@ -9,9 +9,14 @@ namespace TechShop.Interfaces
 {
     public interface IOrderDetails
     {
-        decimal CalculateSubtotal(OrderDetails orderDetail);
-        void GetOrderDetailInfo(OrderDetails orderDetail);
-        void UpdateQuantity(OrderDetails orderDetail, int newQuantity);
-        void AddDiscount(OrderDetails orderDetail, decimal discountPercentage);
+        public decimal CalculateSubtotal(int orderDetailId);
+
+
+
+        //public void UpdateQuantity(int orderDetailid, int newQuantity);
+
+        //public void AddDiscount(int productid, decimal discountPercentage);
+        public void GetOrderDetailInfo(int orderDetailId);
+
     }
 }

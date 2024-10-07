@@ -9,8 +9,8 @@ namespace TechShop.Interfaces
 {
     public interface IProductService
     {
-        void GetProductDetails(Product product);
-        void UpdateProductInfo(Product product, decimal price, string description);
-        bool IsProductInStock(Product product);
+        Product GetProductDetails(int productid);
+        bool UpdateProductInfo(Product product);
+        bool IsProductInStock(int productid);
     }
 }

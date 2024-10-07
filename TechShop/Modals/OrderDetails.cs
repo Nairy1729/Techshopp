@@ -11,8 +11,8 @@ namespace TechShop.Modals
         private int quantity;
 
         public int OrderDetailID { get; set; }
-        public Order Order { get; set; }
-        public Product Product { get; set; }
+        public int OrderID { get; set; }
+        public int ProductID { get; set; }
 
         // Quantity with validation
         public int Quantity
@@ -28,11 +28,11 @@ namespace TechShop.Modals
             }
         }
 
-        public OrderDetails(int orderDetailId, Order order, Product product, int quantity)
+        public OrderDetails(int orderDetailId, int orderid, int productid, int quantity)
         {
             OrderDetailID = orderDetailId;
-            Order = order;
-            Product = product;
+            OrderID = orderid;
+            ProductID = productid;
             Quantity = quantity; // Will go through validation
         }
 
